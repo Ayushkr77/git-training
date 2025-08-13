@@ -1,0 +1,40 @@
+Topic 1 — Distributed Version Control System (DVCS)
+
+1. Concept
+Version Control = System to track changes in code over time.
+Centralized VCS (CVCS) → One central server holds the main repo (e.g., SVN).
+If the server is down, no commits/pulls are possible.
+Distributed VCS (DVCS) → Every developer has a full copy of the repository including history on their local machine.
+Git, Mercurial are examples.
+Why it matters:
+Even if GitHub/Bitbucket goes down, you still have the full repo & can work offline.
+
+2. How DVCS works (Git example)
+Remote repo hosted on GitHub/Bitbucket/GitLab.
+You clone it → your local machine has entire code + commit history.
+You make changes → commit locally.
+You push changes to remote.
+Others pull changes from remote.
+
+3. Visual
+        ┌──────────────┐
+        │ Remote Repo  │  (GitHub)
+        └───────▲──────┘
+                │ Push / Pull
+ ┌──────────────┴──────────────┐
+ │ Developer A    Developer B │
+ │ Full local repo Full local │
+ │ history       history      │
+ └────────────────────────────┘
+
+4. Advantages
+Offline work possible.
+Faster operations (local commits, branching).
+Backup in every dev’s machine.
+Flexible workflows (branches, merges).
+
+5. Hands-on in VS Code
+Check if Git is installed
+git --version
+
+See how to pull repo and see commit history

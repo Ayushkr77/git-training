@@ -170,3 +170,110 @@ echo "Hello Git" > hello.txt
 git add hello.txt
 # Commit
 git commit -m "Add hello.txt with greeting"
+
+
+
+
+
+
+
+Topic 5 — Creating a Repository
+There are two main ways to create a Git repository:
+Start locally → create repo on your computer, then link to GitHub.
+Start on GitHub → create repo online, then clone to your computer.
+We’ll do Method 1 first (local → GitHub), because it gives you more control.
+
+# 1️⃣ Create folder & init Git
+mkdir my-exciting-project
+cd my-exciting-project
+git init
+
+# 2️⃣ Add file & commit
+echo "# My Exciting Project" > README.md
+git add README.md
+git commit -m "Add README.md"
+
+# 3️⃣ Link to GitHub repo
+git remote add origin https://github.com/YourUsername/my-exciting-project.git
+
+# 4️⃣ Push to GitHub
+git push -u origin main   # or master if that's your branch
+
+
+
+
+
+
+
+
+
+Topic 6 — Cloning a Repository
+Cloning = Downloading a complete copy of a remote repository (code + commit history) onto your local machine.
+
+1. Two ways to clone
+HTTPS (easier for beginners): Uses your GitHub username + password or Personal Access Token (PAT) for authentication.
+SSH (more secure, no password every time): Uses an SSH key pair to authenticate without entering credentials each time.
+
+2. Clone via HTTPS
+Steps:
+On your GitHub repo page, click Code → select HTTPS link.
+git clone https://github.com/YourUsername/my-exciting-project.git
+
+3. Clone via SSH (Recommended for long-term)  Little problem in commands, though I ran all of them successfully.
+Step 1 — Generate SSH key (one-time setup)
+ssh-keygen -t rsa -b 4096 -C "your-email@example.com"
+Press Enter for file location (~/.ssh/id_rsa default)
+Press Enter for no passphrase (or set one if you want)
+Step 2 — Add key to SSH agent
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+Step 3 — Add key to GitHub
+Copy the key:
+cat ~/.ssh/id_rsa.pub
+Go to GitHub → Settings → SSH and GPG keys → New SSH key
+Paste the copied key.
+Step 4 — Clone via SSH
+From repo page → Code → SSH link:
+git clone git@github.com:YourUsername/my-exciting-project.git
+
+4. Verifying Clone
+cd my-exciting-project
+git remote -v
+
+
+
+| Feature               | HTTPS                                                                                 | SSH                                                                           |
+| --------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| **Authentication**    | Username + password or personal access token (PAT)                                    | SSH key pair (public/private)                                                 |
+| **Setup**             | No initial setup needed (works immediately)                                           | Requires generating SSH key and adding to Git provider                        |
+| **Security**          | Encrypted, but credentials sent with every push/pull                                  | Encrypted, key-based authentication (no password sent every time)             |
+| **Convenience**       | Easier for beginners, but needs credentials/PAT for each push (or credential manager) | Once set up, no need to enter credentials again                               |
+| **Firewall Friendly** | Works on port 443 (less likely to be blocked)                                         | Uses port 22 (can be blocked in restricted networks)                          |
+| **Best Use Case**     | Quick clone when you don’t plan frequent pushes, or when SSH is blocked               | Frequent work with repositories, automation, and better long-term convenience |
+
+If you want speed + no password prompts → go with SSH.
+If you want quick start without setup → go with HTTPS.
+
+
+
+
+
+
+
+
+Topic 7 — Fetching Branch Updates       https://www.youtube.com/watch?v=KmagW60Li-o
+When working in a team, others will make changes to the remote repository.
+You need to bring those changes to your local repository to stay up-to-date.
+
+1. Two Main Commands
+| Command         | What It Does                                                                                          | When to Use                                          |
+| --------------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| **`git fetch`** | Downloads new commits, branches, and tags from remote, but does **not** merge into your local branch. | When you want to see what’s new before merging.      |
+| **`git pull`**  | Downloads new commits **and** merges them into your current branch.                                   | When you’re ready to immediately update your branch. |
+
+2. Visual Difference
+[Remote Repo] → fetch → [Local Repo + Local Branches]
+                  ↓
+              merge manually
+
+[Remote Repo] → pull → [Local Repo Updated Automatically]

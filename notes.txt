@@ -170,3 +170,7 @@ echo "Hello Git" > hello.txt
 git add hello.txt
 # Commit
 git commit -m "Add hello.txt with greeting"
+
+
+
+New line added

@@ -173,6 +173,7 @@ git commit -m "Add hello.txt with greeting"
 
 
 
+<<<<<<< HEAD
 
 
 
@@ -277,3 +278,6 @@ You need to bring those changes to your local repository to stay up-to-date.
               merge manually
 
 [Remote Repo] → pull → [Local Repo Updated Automatically]
+=======
+New line added
+>>>>>>> origin/master

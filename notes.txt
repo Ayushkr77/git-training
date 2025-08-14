@@ -38,3 +38,135 @@ Check if Git is installed
 git --version
 
 See how to pull repo and see commit history
+git log shows the commit history of your Git repository.
+
+
+
+
+
+
+
+
+
+Topic 2 — What is Git & Why Use It
+
+1. What is Git?
+Git is a Distributed Version Control System created in 2005 by Linus Torvalds (creator of Linux Kernel).
+Originally built to manage the massive Linux Kernel project.
+Now used worldwide for all types of projects — from solo coding to huge enterprise apps.
+
+2. Git’s Key Features
+| Feature                         | Meaning                                               |
+| ------------------------------- | ----------------------------------------------------- |
+| **DVCS**                        | Fully local repo & history                            |
+| **Snapshot system**             | Saves a *picture* of the files, not just changes      |
+| **Content-addressable storage** | Uses SHA-1 hash to identify content uniquely          |
+| **Speed**                       | Operations are local — commits, branching are instant |
+| **Non-linear development**      | Many branches in parallel, merging later              |
+| **Data integrity**              | Every file is checked by its hash                     |
+| **Free & open-source**          | Maintained by a large community                       |
+
+3. Why Use Git?
+Industry standard: Most companies use Git (GitHub, GitLab, Bitbucket).
+Team collaboration: Many developers can work simultaneously without overwriting each other.
+History tracking: You can go back to any commit in history.
+Branch-based workflows: Safely work on features without affecting the main branch.
+Supports CI/CD pipelines: Easy integration with build/test/deploy tools.
+
+4. Hands-on in VS Code
+Set Your Git Identity: This is important because every commit stores: Author name, Email
+git config --global user.name "Ayush Kumar"
+git config --global user.email "your-email@example.com"
+Verify Git Config
+git config --list
+
+5. Pro Tip
+If you work with multiple accounts (personal + work), don’t use global config for work repos — we can set it per repo later with:
+git config user.name "Work Name"
+git config user.email "work-email@example.com"
+
+| Command                                       | Scope  | Applies To                      |
+| --------------------------------------------- | ------ | ------------------------------- |
+| `git config --global user.name "Ayush Kumar"` | Global | All repos for your user account |
+| `git config user.name "Work Name"`            | Local  | Only the current repository     |
+
+
+
+
+
+
+
+
+
+Topic 3 — Popular Git Hosting Providers
+1. Why do we need hosting providers?
+Git works offline, but in a team you need a shared remote repository so everyone can collaborate.
+Hosting providers store your repository online with:
+Access control (who can view/commit)
+Issue tracking
+Pull request workflow
+CI/CD integration. Study ci/cd in detail
+
+2. The Big Three
+| Provider      | Website                                | Free Plan                        | Main Use Cases                           |
+| ------------- | -------------------------------------- | -------------------------------- | ---------------------------------------- |
+| **GitHub**    | [github.com](https://github.com)       | Unlimited public & private repos | Most popular, huge open-source community |
+| **GitLab**    | [gitlab.com](https://gitlab.com)       | Unlimited repos, built-in CI/CD  | Strong DevOps features                   |
+| **Bitbucket** | [bitbucket.org](https://bitbucket.org) | Free for small teams             | Tight integration with Jira & Trello     |
+
+
+
+
+
+
+
+
+
+
+Topic 4 — Git Fundamentals
+This covers the three main building blocks you’ll use all the time in Git:
+Repository
+Branch
+Commit
+
+1. Repository: A repository (repo) = Your project folder + Git’s hidden .git folder that tracks all history.
+Two types:
+Local repo → on your computer
+Remote repo → on GitHub/GitLab/etc.
+Creating a local repo: 
+# Create a folder
+mkdir git-fundamentals
+cd git-fundamentals
+# Initialize Git
+git init
+
+2. Branch
+A branch is an independent line of development.
+The default branch is usually called main (or master in older repos).
+Branches allow parallel development without disturbing the main code.
+
+Creating & switching branches:
+# Create a branch
+git branch feature-1
+# Switch to it
+git checkout feature-1
+# OR shortcut: git checkout -b feature-1
+
+Viewing branches
+git branch
+
+3. Commit
+A commit = A snapshot of your code at a point in time.
+Every commit has:
+Unique ID (SHA-1 hash)
+Author name/email
+Commit message
+Timestamp
+
+Making your first commit
+# Create a file
+echo "Hello Git" > hello.txt
+# Stage the file
+git add hello.txt
+# Commit
+git commit -m "Add hello.txt with greeting"

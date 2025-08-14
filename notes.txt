@@ -262,7 +262,8 @@ If you want quick start without setup → go with HTTPS.
 
 
 
-Topic 7 — Fetching Branch Updates       https://www.youtube.com/watch?v=KmagW60Li-o
+Topic 7 — Fetching Branch Updates       
+https://www.youtube.com/watch?v=KmagW60Li-o
 When working in a team, others will make changes to the remote repository.
 You need to bring those changes to your local repository to stay up-to-date.
 
@@ -279,6 +280,82 @@ You need to bring those changes to your local repository to stay up-to-date.
 
 [Remote Repo] → pull → [Local Repo Updated Automatically]
 
+Summary:
+# 1️⃣ Check if local is outdated
+git status
+
+# 2️⃣ Fetch remote changes (does NOT update files yet)
+git fetch
+
+# 3️⃣ See new commits from remote
+git log origin/main --oneline
+
+# 4️⃣ Merge remote changes into local
+git merge origin/main
+
+# 🔄 Shortcut: fetch + merge in one step
+git pull origin main
+
+4. Pro Tip
+Use fetch if you’re unsure about merging yet — it’s safer.
+Use pull when you know the changes are ready to merge.
 
 
-pulling ...
+
+
+
+
+
+
+Topic 8 — Working with Branches
+Branches let you work on features, bug fixes, or experiments without touching the main code.
+Once done, you can merge your branch back into the main branch.
+
+Key Branch Commands
+| Action                 | Command                                |
+| ---------------------- | -------------------------------------- |
+| List branches          | `git branch`                           |
+| Create branch          | `git branch branch-name`               |
+| Switch branch          | `git checkout branch-name`             |
+| Create + switch        | `git checkout -b branch-name`          |
+| Delete branch (local)  | `git branch -d branch-name`            |
+| Delete branch (remote) | `git push origin --delete branch-name` |
+
+# DVCS (Git) Branch Commands Summary
+
+# 1. Create a new branch
+git branch <branch_name>
+
+# 2. Switch to a branch
+git checkout <branch_name>
+
+# 3. Create and switch to a branch in one step
+git checkout -b <branch_name>
+
+# 4. List all branches
+git branch
+
+# 5. Rename a branch (while on another branch)
+git branch -m <old_branch_name> <new_branch_name>
+
+# 6. Delete a branch (safe delete - only if fully merged)
+git branch -d <branch_name>
+
+# 7. Force delete a branch (even if not merged)
+git branch -D <branch_name>
+
+# 8. Push a branch to remote
+git push origin <branch_name>
+
+# 9. Pull a branch from remote
+git checkout <branch_name>
+git pull origin <branch_name>
+
+# 10. Merge a branch into the current branch
+git merge <branch_name>
+
+# 11. Fetch latest branches from remote
+git fetch --all
+
+# 12. View last commit on each branch
+git branch -v

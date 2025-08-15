@@ -1,4 +1,9 @@
-Topic 11 — Rebasing in Git
+https://chatgpt.com/c/689c5297-dcb8-8323-ba6f-abc2d4178bad
+https://chatgpt.com/c/689c5665-3454-8325-a74b-d7c7f0aa326e
+https://chatgpt.com/c/689f8775-f704-8325-b916-b524c7dee478
+
+
+Topic 11 — Rebasing in Git.    Problem in rebasing theory as well as its commands
 Rebase = Moving or combining a sequence of commits to a new base commit.
 Instead of merging (which creates a merge commit), rebase rewrites history so your commits appear on top of another branch’s commits.
 
@@ -71,3 +76,56 @@ drop → remove commit
 5. Important Notes
 Don’t rebase public/shared branches (can break teammates’ history).
 Safe to rebase your local feature branches before merging into main.
+
+
+
+
+
+
+
+
+
+
+
+Topic 12 — Viewing History
+Goal: Learn how to view and filter Git commit history, so you can easily track changes and understand project evolution.
+1️⃣ Basic Commands
+View commit history:    git log.    
+Shows commit hash, author, date, and message.
+Short, one-line view:     git log --oneline
+Show graph of branches:      git log --oneline --graph --all --decorate
+
+2️⃣ Filtering Commits
+By author:   git log --author="Ayush"
+By date:   git log --since="2 days ago"
+git log --until="2025-08-15"
+By file:  git log -- <file_name>
+
+3️⃣ Pretty Formats
+Customize log output:
+git log --pretty=oneline
+git log --pretty=format:"%h - %an, %ar : %s"
+%h → short commit hash
+%an → author name
+%ar → relative date
+%s → commit message
+
+4️⃣ Hands-on Exercise
+1. Make a few commits on any branch:
+echo "History Test 1" >> file.txt
+git add file.txt
+git commit -m "History Test 1"
+echo "History Test 2" >> file.txt
+git add file.txt
+git commit -m "History Test 2"
+
+2. View commits in different ways:
+git log --oneline
+git log --pretty=format:"%h - %an, %ar : %s"
+git log --graph --all --decorate
+
+3. Filter commits by author or file:
+git log --author="Ayush"
+git log -- file.txt
+
+✅ Tip: Knowing how to view history is essential for debugging, understanding past work, and preparing for rebases or merges.

@@ -1,4 +1,6 @@
 Hello
 
 Hello from merge branch and this is the new line added
-Another line added. Merge conflict 2 in main branch
+Another line added. Merge conflict 1 in main branch
+
+Another line added.  Merge confict 2 in branch1 branch

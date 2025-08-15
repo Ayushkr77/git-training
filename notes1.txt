@@ -1,0 +1,73 @@
+Topic 11 — Rebasing in Git
+Rebase = Moving or combining a sequence of commits to a new base commit.
+Instead of merging (which creates a merge commit), rebase rewrites history so your commits appear on top of another branch’s commits.
+
+1. Why Rebase?
+Cleaner history — looks like work happened in a straight line.
+Avoids extra merge commits.
+Makes it easier to understand project history.
+
+2. Merge vs Rebase
+Merge:
+main:    A---B---C
+               \
+feature:        D---E
+merge result:   A---B---C---M
+                     \     /
+                      D---E
+
+Rebase:
+main:    A---B---C
+                 \
+feature:          D'---E'
+Here D and E are rewritten as D' and E' on top of main.
+
+
+3. Hands-on: Basic Rebase in VS Code
+Step 1 — Setup branches
+# Create a main commit
+echo "line 1" > file.txt
+git add file.txt
+git commit -m "Add line 1"
+# Create feature branch
+git checkout -b feature/rebase-demo
+echo "line 2 from feature" >> file.txt
+git commit -am "Add line 2 from feature"
+
+Step 2 — Switch to main and add change
+git checkout main
+echo "line 2 from main" >> file.txt
+git commit -am "Add line 2 from main"
+
+Step 3 — Rebase feature branch onto main
+git checkout feature/rebase-demo
+git rebase main
+If no conflicts → commits from feature/rebase-demo are replayed on top of main.
+
+Step 4 — Handling conflicts in rebase
+If conflict appears:
+VS Code will highlight conflict markers (<<<<<<< etc.)
+Fix the file manually.
+Mark conflict resolved:
+git add file.txt
+git rebase --continue
+If you want to cancel:
+git rebase --abort
+
+4. Interactive Rebase
+Lets you reorder, edit, squash, or drop commits.
+git rebase -i HEAD~3
+You’ll see:
+pick abc123 Commit message 1
+pick def456 Commit message 2
+pick ghi789 Commit message 3
+
+Commands:
+pick → keep commit as is
+reword → edit commit message
+squash → combine with previous commit
+drop → remove commit
+
+5. Important Notes
+Don’t rebase public/shared branches (can break teammates’ history).
+Safe to rebase your local feature branches before merging into main.

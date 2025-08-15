@@ -307,7 +307,7 @@ Use pull when you know the changes are ready to merge.
 
 
 
-Topic 8 — Working with Branches.   Shradha video from 51 min
+Topic 8 — Working with Branches.   Shradha video from 51 min. Must see 
 Branches let you work on features, bug fixes, or experiments without touching the main code.
 Once done, you can merge your branch back into the main branch.
 
@@ -373,7 +373,7 @@ Delete the old master branch from remote:      git push origin --delete master
 
 
 
-Topic 9 — Merging in Git
+Topic 9 — Merging in Git. Must see Shradha video from 56 min
 Merging = Bringing the changes from one branch into another.
 Usually, we merge feature branches into the main (or develop) branch.
 

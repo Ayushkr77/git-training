@@ -412,3 +412,71 @@ git push origin main
 # - Pull before merging: git pull origin main
 # - Merge small, frequent branches
 # - Use PRs for team collaboration
+
+
+
+
+
+
+
+
+
+
+Topic 10 — Merge Conflicts. See Shradha video from 1hr
+A merge conflict happens when two branches change the same part of the same file and Git doesn’t know which change to keep.
+
+1. Why merge conflicts happen
+Example scenario:
+You edit about.txt in main branch.
+Someone edits the same line in about.txt in feature branch.
+When you merge, Git can’t auto-decide which version is correct.
+
+2. Hands-on: Create & Resolve a Conflict in VS Code
+Step 1 — Create a repo & file
+cd my-exciting-project
+echo "Welcome to our website." > about.txt
+git add about.txt
+git commit -m "Add about.txt"
+
+Step 2 — Create a branch
+git checkout -b feature/update-about
+Edit about.txt:
+Welcome to our awesome website.
+Commit changes:
+git add about.txt
+git commit -m "Update about.txt in feature branch"
+
+Step 3 — Switch to main & edit same line
+git checkout main
+Edit about.txt:
+Welcome to our official website.
+Commit changes:
+git add about.txt
+git commit -m "Update about.txt in main branch"
+
+Step 4 — Merge and cause a conflict
+git merge feature/update-about
+
+3. Resolving the Conflict in VS Code
+Open about.txt — you’ll see:
+<<<<<<< HEAD
+Welcome to our official website.
+=======
+Welcome to our awesome website.
+>>>>>>> feature/update-about
+Meaning:
+HEAD = Your current branch’s version (main)
+Below ======= = The incoming branch’s version (feature/update-about)
+Option 1 — Keep one version
+Replace everything with:    Welcome to our official and awesome website.
+Option 2 — Merge manually. You can combine the changes as above, or keep only one side.
+
+Step 5 — Mark conflict resolved
+git add about.txt
+git commit -m "Resolve merge conflict in about.txt"
+✅ Conflict resolved — your branch now contains both sets of changes as you decided.
+
+Pro Tips
+Always pull before starting work to reduce conflicts.
+Keep feature branches short-lived.
+Communicate with teammates about files being edited.

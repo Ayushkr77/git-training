@@ -384,4 +384,31 @@ Usually, we merge feature branches into the main (or develop) branch.
 | **Merge commit** | If both branches have new commits                   | Creates a new commit that ties histories together       |
 
 
-Hello
+# Step 1 — Setup
+cd my-exciting-project
+
+# Step 2 — Create & switch to feature branch
+git checkout -b feature/add-contact
+
+# Add a file
+echo "Contact us at: support@example.com" > contact.txt
+git add contact.txt
+git commit -m "Add contact.txt"
+
+# Step 3 — Merge into main
+git checkout main
+git pull origin main   # Always pull latest before merge
+git merge feature/add-contact
+
+# Step 4 — Merge commit scenario (optional example)
+# (Only happens if both main and feature branch have new commits)
+# Just merge and resolve conflicts if needed:
+# git merge feature/add-contact
+
+# Step 5 — Push merged changes
+git push origin main
+
+# Good Practice:
+# - Pull before merging: git pull origin main
+# - Merge small, frequent branches
+# - Use PRs for team collaboration

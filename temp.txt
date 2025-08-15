@@ -1,4 +1,4 @@
 Hello
 
 Hello from merge branch and this is the new line added
-Another line added
+Another line added.  Merge confict 2 in branch1 branch

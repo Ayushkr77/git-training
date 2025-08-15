@@ -1,1 +1,4 @@
 Hello
+
+Hello from merge branch and this is the new line added
+Another line added

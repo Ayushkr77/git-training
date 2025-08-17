@@ -275,3 +275,305 @@ git commit -m "fix: correct typo in login messages"
 Little problem in amend
 
 ✅ Tip: Good commit hygiene makes rebasing, merging, and PR reviews much easier
+
+
+
+
+
+
+
+
+
+
+
+
+Topic 15 — Removing Commits.     Havent practiced the commands
+Goal: Learn how to undo commits, whether you want to keep the changes, discard them, or revert them safely.
+
+1️⃣ Concept
+There are three main ways to remove or undo commits in Git:
+
+1. Soft Reset (--soft)
+Moves HEAD to a previous commit
+Keeps changes in staging area
+Useful when you want to redo a commit
+git reset --soft HEAD~1
+
+2. Mixed Reset (default)
+Moves HEAD and unstages changes
+Keeps changes in working directory
+git reset HEAD~1
+
+3. Hard Reset (--hard)
+Moves HEAD and discards changes completely
+Use with caution
+git reset --hard HEAD~1
+
+4. Revert
+Creates a new commit that undoes a previous commit
+Safe for public/shared branches
+git revert <commit_hash>
+
+2️⃣ Commands & Examples
+Undo last commit but keep changes staged (soft reset):   git reset --soft HEAD~1
+Undo last commit and unstage changes (mixed reset):   git reset HEAD~1
+Undo last commit and discard changes (hard reset):   git reset --hard HEAD~1
+Revert a commit safely in a shared branch:    git revert a1b2c3d
+View commit history to choose which commit to remove:    git log --oneline
+
+3️⃣ Hands-on Exercise
+
+1. Make 3 commits on a branch:
+echo "Test 1" >> file.txt
+git add file.txt
+git commit -m "Test 1"
+echo "Test 2" >> file.txt
+git add file.txt
+git commit -m "Test 2"
+echo "Test 3" >> file.txt
+git add file.txt
+git commit -m "Test 3"
+
+2. Undo last commit but keep changes staged:     git reset --soft HEAD~1
+
+3. Undo second commit but discard changes:    git reset --hard HEAD~2
+
+4. Make a commit and revert it safely:    
+echo "Test 4" >> file.txt
+git add file.txt
+git commit -m "Test 4"
+git revert HEAD
+
+✅ Tip:
+Use reset for local commits not shared with others
+Use revert for commits that are already pushed or shared
+
+
+
+
+
+
+
+
+
+
+
+
+Topic 16 — Squashing Commits
+🎯 Goal: Learn how to combine multiple commits into one clean commit using interactive rebase, so that history is easy to read and professional.
+
+1️⃣ Concept
+When working on a feature, we often make multiple small commits like:
+fix typo
+added console.log
+final fix
+➡️ These look messy in the main branch.
+👉 Squashing lets you combine them into one meaningful commit (e.g., Add login feature).
+
+Key Method: Interactive Rebase
+git rebase -i HEAD~N
+N = number of commits from HEAD you want to squash.
+Opens an editor where you can choose which commits to squash into the first one.
+
+2️⃣ Commands & Examples
+Start interactive rebase for last 3 commits:
+git rebase -i HEAD~3
+Change pick to squash (or s) for commits you want to merge into the one above:
+pick d1f8e76 Add line 1
+squash a7b4e21 Add line 2
+squash c3f9a8d Add line 3
+
+Edit commit message to something clean:
+Add demo.txt with lines 1–3
+
+View history after squashing:
+git log --oneline
+Result → One commit instead of three. ✅
+
+3️⃣ Hands-on Exercise
+
+Step 1: Create demo repo and make 3 commits
+mkdir git-squash-demo
+cd git-squash-demo
+git init
+echo "Line 1" > demo.txt
+git add .
+git commit -m "Add line 1"
+echo "Line 2" >> demo.txt
+git add .
+git commit -m "Add line 2"
+echo "Line 3" >> demo.txt
+git add .
+git commit -m "Add line 3"
+git log --oneline
+
+Step 2: Start interactive rebase for last 3 commits
+git rebase -i HEAD~3
+
+Step 3: Mark commits to squash
+In the editor:
+pick d1f8e76 Add line 1
+squash a7b4e21 Add line 2
+squash c3f9a8d Add line 3
+
+Step 4: Edit commit message
+Add demo.txt with lines 1–3
+
+Step 5: Verify
+git log --oneline
+Now you’ll see only 1 clean commit. 🎉
+
+✅ Tip
+Use squash before merging feature branches into main.
+Keep commits atomic and meaningful.
+Avoid squashing commits that are already pushed/shared, unless you’re sure (rewrites history).
+If already pushed, use merge --squash instead.
+
+
+
+
+
+
+
+
+
+
+
+
+Topic 17 — Amending Commits
+🎯 Goal: Learn how to modify the most recent commit — either the message or the content (files).
+
+1️⃣ Concept
+Sometimes after committing, you realize:
+You forgot to add a file
+The commit message has a typo
+You want to adjust the commit content
+👉 Instead of making a new commit, you can amend the last one.
+Key Command:    git commit --amend
+
+Options:
+Amend commit message only
+Amend commit content (files + message)
+
+2️⃣ Commands & Examples
+Change the last commit message
+git commit --amend -m "New commit message"
+Add a forgotten file to the last commit
+git add missing_file.txt
+git commit --amend
+Amend without changing the message (keep same message, only content changes)
+git commit --amend --no-edit
+View commit history to confirm changes
+git log --oneline
+
+3️⃣ Hands-on Exercise
+
+Step 1: Create a repo and make a commit
+mkdir git-amend-demo
+cd git-amend-demo
+git init
+echo "Hello" > file.txt
+git add file.txt
+git commit -m "Add file.txt"
+
+Step 2: Realize commit message is wrong → fix it
+git commit --amend -m "Add initial file.txt"
+
+Step 3: Forget to add another file → amend commit with content
+echo "Extra content" > extra.txt
+git add extra.txt
+git commit --amend --no-edit
+
+Step 4: Check log
+git log --oneline
+You’ll see only one commit containing both file.txt and extra.txt.
+
+✅ Tip
+Use amend only if you haven’t pushed yet.
+If you already pushed → amending rewrites history, which can confuse collaborators.
+Safe rule: Amend locally, Revert if already pushed.
+
+
+
+
+
+
+
+
+
+
+Topic 18 — Deleting Commits
+🎯 Goal: Learn how to remove unwanted commits from history, either locally or in a shared branch.
+
+1️⃣ Concept
+There are a few ways to delete commits in Git depending on the situation:
+
+1. Reset (local only)
+Removes commits by moving HEAD back
+Use for local branches not yet pushed
+Types: --soft, --mixed, --hard
+git reset --hard HEAD~1
+
+2. Rebase (interactive delete)
+Lets you choose which commits to drop
+Good for cleaning up history before pushing
+git rebase -i HEAD~N
+
+3. Revert (safe delete)
+Does not remove commits
+Creates a new commit that undoes a previous one
+Safe for shared/public branches
+git revert <commit_hash>
+
+2️⃣ Commands & Examples
+Delete last commit completely (local only)
+git reset --hard HEAD~1
+
+Delete specific commit interactively
+git rebase -i HEAD~3
+
+In the editor, replace pick with drop:
+pick d1f8e76 Add file.txt
+drop a7b4e21 Fix typo
+pick c3f9a8d Add new feature
+
+Revert a commit safely in shared history
+git revert <commit_hash>
+
+View history after deleting commits
+git log --oneline
+
+3️⃣ Hands-on Exercise
+
+Step 1: Make 3 commits
+mkdir git-delete-demo
+cd git-delete-demo
+git init
+echo "Line 1" > file.txt
+git add file.txt
+git commit -m "Commit 1"
+echo "Line 2" >> file.txt
+git add file.txt
+git commit -m "Commit 2"
+echo "Line 3" >> file.txt
+git add file.txt
+git commit -m "Commit 3"
+git log --oneline
+
+Step 2: Delete last commit completely
+git reset --hard HEAD~1
+
+Step 3: Delete a middle commit using rebase
+git rebase -i HEAD~2
+In the editor → mark commit 2 as drop, save, and exit.
+
+Step 4: Revert a commit safely (if pushed)
+echo "Line 4" >> file.txt
+git add file.txt
+git commit -m "Commit 4"
+git revert HEAD
+
+✅ Tip
+Use reset or rebase for local commits only.
+Use revert when working with a team (safe & non-destructive).
+Always check history with git log --oneline after changes.
